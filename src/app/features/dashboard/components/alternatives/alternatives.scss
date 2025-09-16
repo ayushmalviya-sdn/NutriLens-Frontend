@@ -1,0 +1,93 @@
+ .alternatives-container {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+      border-radius: 12px;
+      border: 1px solid #c8e6c9;
+    }
+
+    .alternatives-container h3 {
+      margin: 0 0 16px 0;
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .alternatives-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .alternative-card {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .alternative-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .alternative-header h4 {
+      margin: 0;
+      color: #333;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .improvement-badge {
+      background: #4CAF50;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .reason {
+      color: #666;
+      font-size: 14px;
+      margin: 8px 0 12px 0;
+      font-style: italic;
+    }
+
+    .nutrition-comparison {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .nutrition-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+
+    .nutrition-item .label {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    .nutrition-item .value {
+      font-weight: 600;
+      color: #333;
+      font-size: 13px;
+    }
+
+    .health-score {
+      color: #4CAF50;
+    }
+
+    @media (max-width: 768px) {
+      .nutrition-comparison {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
