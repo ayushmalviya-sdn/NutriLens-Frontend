@@ -1,83 +1,58 @@
-<mat-toolbar color="primary">
-      <span>Dashboard</span>
-      <span class="spacer"></span>
-      <!-- <span>Welcome, {{ currentUser?.name }}!</span> -->
-      <span>Welcome, xyz</span>
-      <button mat-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        Logout
-      </button>
-    </mat-toolbar>
+<div class="app-container w-100">
+      <header class="app-header">
+        <h1>🍎 AI Nutrition Tracker</h1>
+        <p>Upload food images to track nutrition and discover healthier alternatives</p>
+      </header>
 
-    <div class="dashboard-content">
-      <mat-grid-list cols="4" rowHeight="200" class="stats-grid">
-        <mat-grid-tile>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Total Users</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <h2>1,234</h2>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        
-        <mat-grid-tile>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Active Sessions</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <h2>567</h2>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        
-        <mat-grid-tile>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Revenue</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <h2>$12,345</h2>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        
-        <mat-grid-tile>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>Growth</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <h2>+23%</h2>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+      <nav class="app-nav">
+        <button 
+          *ngFor="let tab of tabs" 
+          class="nav-btn"
+          [class.active]="activeTab === tab.id"
+          (click)="setActiveTab(tab.id)">
+          {{ tab.label }}
+        </button>
+      </nav>
 
-      <mat-card class="activity-card">
-        <mat-card-header>
-          <mat-card-title>Recent Activity</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item>
-              <mat-icon matListIcon>person_add</mat-icon>
-              <div matLine>New user registered</div>
-              <div matLine>2 hours ago</div>
-            </mat-list-item>
-            <mat-list-item>
-              <mat-icon matListIcon>backup</mat-icon>
-              <div matLine>System backup completed</div>
-              <div matLine>4 hours ago</div>
-            </mat-list-item>
-            <mat-list-item>
-              <mat-icon matListIcon>update</mat-icon>
-              <div matLine>New feature deployed</div>
-              <div matLine>1 day ago</div>
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
+      <main class="app-main">
+        <div *ngIf="activeTab === 'upload'" class="tab-content">
+          <app-image-upload (imageAnalyzed)="onImageAnalyzed($event)"></app-image-upload>
+          
+          <div *ngIf="isAnalyzing" class="analyzing-state">
+            <div class="spinner"></div>
+            <p>🤖 AI is analyzing your food...</p>
+          </div>
+          
+          <div *ngIf="lastAnalyzedFood" class="analysis-result">
+            <h3>Analysis Complete!</h3>
+            <app-food-card 
+              [food]="lastAnalyzedFood" 
+              (delete)="onDeleteFood($event)">
+            </app-food-card>
+            
+            <app-alternatives [alternatives]="currentAlternatives"></app-alternatives>
+          </div>
+        </div>
+
+        <div *ngIf="activeTab === 'history'" class="tab-content">
+          <div class="food-history">
+            <h3>Food History</h3>
+            <div *ngIf="(foodItems$ | async)?.length === 0" class="empty-state">
+              <div class="empty-icon">🍽️</div>
+              <p>No foods logged yet. Start by uploading a food image!</p>
+            </div>
+            <div class="food-grid">
+              <app-food-card 
+                *ngFor="let food of foodItems$ | async" 
+                [food]="food"
+                (delete)="onDeleteFood($event)">
+              </app-food-card>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="activeTab === 'stats'" class="tab-content">
+          <app-stats></app-stats>
+        </div>
+      </main>
     </div>

@@ -1,0 +1,72 @@
+  <div class="stats-container">
+      <h2>📊 Your Nutrition Stats</h2>
+      
+      <div class="today-stats">
+        <h3>Today's Summary</h3>
+        <div class="stats-grid">
+          <div class="stat-card calories">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-content">
+              <div class="stat-value">{{ todayStats.totalCalories }}</div>
+              <div class="stat-label">Calories</div>
+            </div>
+          </div>
+          
+          <div class="stat-card protein">
+            <div class="stat-icon">💪</div>
+            <div class="stat-content">
+              <div class="stat-value">{{ todayStats.totalProtein }}g</div>
+              <div class="stat-label">Protein</div>
+            </div>
+          </div>
+          
+          <div class="stat-card health">
+            <div class="stat-icon">❤️</div>
+            <div class="stat-content">
+              <div class="stat-value">{{ todayStats.averageHealthScore | number:'1.1-1' }}/10</div>
+              <div class="stat-label">Health Score</div>
+            </div>
+          </div>
+          
+          <div class="stat-card foods">
+            <div class="stat-icon">🍽️</div>
+            <div class="stat-content">
+              <div class="stat-value">{{ todayStats.foodsConsumed }}</div>
+              <div class="stat-label">Foods Logged</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="weekly-stats">
+        <h3>Weekly Trend</h3>
+        <div class="chart-container">
+          <div class="chart-header">
+            <span>Daily Calories</span>
+          </div>
+          <div class="simple-chart">
+            <div *ngFor="let day of weeklyStats; let i = index" 
+                 class="chart-bar"
+                 [style.height.%]="getBarHeight(day.totalCalories)">
+              <div class="bar-value">{{ day.totalCalories }}</div>
+              <div class="bar-label">{{ getDayLabel(day.date) }}</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="weekly-summary">
+          <div class="summary-item">
+            <span class="summary-label">Average Daily Calories:</span>
+            <span class="summary-value">{{ getAverageCalories() }}</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Best Health Score Day:</span>
+            <span class="summary-value">{{ getBestHealthDay() }}</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Total Foods Logged:</span>
+            <span class="summary-value">{{ getTotalFoods() }}</span>
+          </div>
+        </div>
+      </div>
+    </div>

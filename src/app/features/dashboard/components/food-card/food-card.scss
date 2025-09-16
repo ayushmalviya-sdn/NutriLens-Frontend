@@ -1,0 +1,111 @@
+.food-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .food-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .food-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .food-header h3 {
+      margin: 0;
+      color: #333;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .health-score {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .health-score.excellent {
+      background: #e8f5e8;
+      color: #2e7d32;
+    }
+
+    .health-score.good {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+
+    .health-score.poor {
+      background: #ffebee;
+      color: #d32f2f;
+    }
+
+    .food-category {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .nutrition-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .nutrition-item .label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .nutrition-item .value {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .food-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .timestamp {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+    }
+
+    .delete-btn:hover {
+      background: #ffebee;
+    }
+
+    @media (max-width: 768px) {
+      .nutrition-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }

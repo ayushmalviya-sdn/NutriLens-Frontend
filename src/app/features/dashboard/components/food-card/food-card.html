@@ -1,0 +1,42 @@
+  <div class="food-card">
+      <div class="food-header">
+        <h3>{{ food.name }}</h3>
+        <div class="health-score" [class]="getHealthScoreClass()">
+          {{ food.healthScore }}/10
+        </div>
+      </div>
+      
+      <div class="food-category">{{ food.category }}</div>
+      
+      <div class="nutrition-grid">
+        <div class="nutrition-item">
+          <span class="label">Calories</span>
+          <span class="value">{{ food.nutrition.calories }}</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="label">Protein</span>
+          <span class="value">{{ food.nutrition.protein }}g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="label">Carbs</span>
+          <span class="value">{{ food.nutrition.carbs }}g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="label">Fat</span>
+          <span class="value">{{ food.nutrition.fat }}g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="label">Fiber</span>
+          <span class="value">{{ food.nutrition.fiber }}g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="label">Sodium</span>
+          <span class="value">{{ food.nutrition.sodium }}mg</span>
+        </div>
+      </div>
+      
+      <div class="food-actions">
+        <span class="timestamp">{{ formatTime(food.timestamp) }}</span>
+        <button class="delete-btn" (click)="onDelete()">🗑️</button>
+      </div>
+    </div>
