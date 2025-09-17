@@ -1,4 +1,4 @@
-/* Login Component Styles */
+/* OTP Component Styles */
 .auth-container {
   min-height: 100vh;
   display: flex;
@@ -46,6 +46,7 @@
   color: #718096;
   font-size: 16px;
   margin: 0;
+  line-height: 1.5;
 }
 
 .auth-form {
@@ -54,43 +55,50 @@
   gap: 20px;
 }
 
-.form-group {
+.otp-container {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.form-group label {
+.otp-input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 18px;
   font-weight: 600;
-  color: #2d3748;
-  font-size: 14px;
-}
-
-.form-control {
-  padding: 12px 16px;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease;
   background: #f7fafc;
+  transition: all 0.3s ease;
 }
 
-.form-control:focus {
+.otp-input:focus {
   outline: none;
   border-color: #667eea;
   background: white;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: scale(1.05);
 }
 
-.form-control.error {
+.otp-input.error {
   border-color: #e53e3e;
   background: #fed7d7;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 .error-message {
   color: #e53e3e;
   font-size: 12px;
   font-weight: 500;
+  text-align: center;
 }
 
 .btn-primary {
@@ -116,24 +124,30 @@
   cursor: not-allowed;
 }
 
-.auth-footer {
+.resend-container {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
-.auth-footer p {
+.resend-container p {
   color: #718096;
   font-size: 14px;
+  margin: 0;
 }
 
-.auth-footer a {
+.btn-link {
+  background: none;
+  border: none;
   color: #667eea;
-  text-decoration: none;
+  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
 }
 
-.auth-footer a:hover {
-  text-decoration: underline;
+.btn-link:hover {
+  color: #764ba2;
 }
 
 @media (max-width: 480px) {
@@ -144,5 +158,15 @@
   
   .auth-header h1 {
     font-size: 24px;
+  }
+  
+  .otp-container {
+    gap: 8px;
+  }
+  
+  .otp-input {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
   }
 }
