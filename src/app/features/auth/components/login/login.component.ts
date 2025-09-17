@@ -28,14 +28,13 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
-  loading = false;
-  error = '';
+ loginForm: FormGroup;
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -43,27 +42,22 @@ export class LoginComponent {
     });
   }
 
-  get f() {
-    return this.loginForm.controls;
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.isLoading = true;
+      const { email, password } = this.loginForm.value;
+      
+      // Simulate API call
+      setTimeout(() => {
+        this.authService.setUserData({ email });
+        this.isLoading = false;
+        this.router.navigate(['/auth/otp-verification']);
+      }, 1000);
+    }
   }
 
-  onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.error = '';
-     this.router.navigate(['/dashboard']);
-    // this.authService.login(this.f['email'].value, this.f['password'].value)
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.router.navigate(['/dashboard']);
-    //     },
-    //     error: (error) => {
-    //       this.error = error.error?.message || 'Login failed';
-    //       this.loading = false;
-    //     }
-    //   });
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.loginForm.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
   }
 }

@@ -1,0 +1,41 @@
+  <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1>Verify Your Email</h1>
+          <p>We sent a 6-digit code to <strong>{{ userEmail }}</strong></p>
+        </div>
+        
+        <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="auth-form">
+          <div class="otp-container">
+            <input
+              *ngFor="let digit of otpDigits; let i = index"
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              [class.error]="otpForm.invalid && otpForm.touched"
+              (input)="onDigitInput($event, i)"
+              (keydown)="onKeyDown($event, i)"
+              (paste)="onPaste($event)"
+              #otpInput
+            />
+          </div>
+          
+          <div class="error-message" *ngIf="otpForm.invalid && otpForm.touched">
+            <span *ngIf="otpForm.get('otp')?.errors?.['required']">Please enter the verification code</span>
+            <span *ngIf="otpForm.get('otp')?.errors?.['minlength']">Please enter all 6 digits</span>
+          </div>
+
+          <button type="submit" class="btn-primary" [disabled]="otpForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Verify Code</span>
+            <span *ngIf="isLoading">Verifying...</span>
+          </button>
+
+          <div class="resend-container">
+            <p *ngIf="!canResend">Resend code in {{ countdown }}s</p>
+            <button type="button" class="btn-link" *ngIf="canResend" (click)="resendCode()">
+              Resend Code
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>

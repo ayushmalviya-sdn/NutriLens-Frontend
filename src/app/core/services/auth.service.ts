@@ -5,7 +5,9 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment';
-
+interface UserData {
+  email: string;
+}
 export interface User {
   id: string;
   email: string;
@@ -40,6 +42,14 @@ export class AuthService {
       user ? JSON.parse(user) : null
     );
     this.currentUser = this.currentUserSubject.asObservable();
+     const stored = localStorage.getItem('userData');
+    if (stored) {
+      try {
+        this.userData = JSON.parse(stored);
+      } catch (error) {
+        console.error('Error parsing stored user data:', error);
+      }
+    }
   }
 
   public get currentUserValue(): User | null {
@@ -89,13 +99,32 @@ export class AuthService {
     return this.isBrowser ? localStorage.getItem('token') : null;
   }
 
-  isAuthenticated(): boolean {
-    return true;
-    //return !!this.getToken();
-  }
+  // isAuthenticated(): boolean {
+  //   return true;
+  //   //return !!this.getToken();
+  // }
 
   hasRole(role: string): boolean {
     const user = this.currentUserValue;
     return user ? user.role === role : false;
+  }
+    private userData: UserData | null = null;
+
+  setUserData(data: UserData) {
+    this.userData = data;
+    localStorage.setItem('userData', JSON.stringify(data));
+  }
+
+  getUserData(): UserData | null {
+    return this.userData;
+  }
+
+  clearUserData() {
+    this.userData = null;
+    localStorage.removeItem('userData');
+  }
+
+  isAuthenticated(): boolean {
+    return this.userData !== null;
   }
 }
