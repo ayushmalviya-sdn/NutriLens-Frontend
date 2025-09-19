@@ -2,11 +2,12 @@
   "name": "smart-pod-frontend",
   "version": "0.0.0",
   "scripts": {
-  "build": "npx ng build --configuration production",
-  "start": "ng serve",
-  "test": "ng test"
-}
-
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.1.4",
