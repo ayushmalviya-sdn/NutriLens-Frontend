@@ -1,58 +1,60 @@
-<div class="app-container w-100">
-      <header class="app-header">
-        <h1><img src="nutrilens.png" width="30" class="logo" alt=""> AI Nutrition Tracker</h1>
-        <p>Upload food images to track nutrition and discover healthier alternatives</p>
-      </header>
-
-      <nav class="app-nav">
-        <button 
-          *ngFor="let tab of tabs" 
-          class="nav-btn"
-          [class.active]="activeTab === tab.id"
-          (click)="setActiveTab(tab.id)">
-          {{ tab.label }}
-        </button>
-      </nav>
-
-      <main class="app-main">
-        <div *ngIf="activeTab === 'upload'" class="tab-content">
-          <app-image-upload (imageAnalyzed)="onImageAnalyzed($event)"></app-image-upload>
-          
-          <div *ngIf="isAnalyzing" class="analyzing-state">
-            <div class="spinner"></div>
-            <p>🤖 AI is analyzing your food...</p>
+<div class="app-container">
+      <mat-toolbar color="primary" class="app-toolbar">
+        <div class="toolbar-content">
+          <div class="logo-section">
+            <div class="app-logo"><img src="nutrilens.png" width="30" alt=""></div>
+            <span class="app-title">AI Nutrition Checker</span>
           </div>
-          
-          <div *ngIf="lastAnalyzedFood" class="analysis-result">
-            <h3>Analysis Complete!</h3>
-            <app-food-card 
-              [food]="lastAnalyzedFood" 
-              (delete)="onDeleteFood($event)">
-            </app-food-card>
-            
-            <app-alternatives [alternatives]="currentAlternatives"></app-alternatives>
+          <div class="toolbar-actions">
+            <button mat-icon-button>
+              <mat-icon>info</mat-icon>
+            </button>
           </div>
         </div>
+      </mat-toolbar>
 
-        <div *ngIf="activeTab === 'history'" class="tab-content">
-          <div class="food-history">
-            <h3>Food History</h3>
-            <div *ngIf="(foodItems$ | async)?.length === 0" class="empty-state">
-              <div class="empty-icon">🍽️</div>
-              <p>No foods logged yet. Start by uploading a food image!</p>
+      <main class="main-content">
+        <div class="welcome-section" *ngIf="!nutritionData && !loading">
+          <div class="hero-logo"><img src="nutrilens.png"  width="60" alt=""></div>
+          <h1 class="welcome-title">Discover Your Food's Nutrition</h1>
+          <p class="welcome-subtitle">
+            Take a photo or upload an image of your food to get instant nutritional analysis
+          </p>
+          <div class="feature-icons">
+            <div class="feature-item">
+              <div class="feature-icon">📸</div>
+              <span>Take Photo</span>
             </div>
-            <div class="food-grid">
-              <app-food-card 
-                *ngFor="let food of foodItems$ | async" 
-                [food]="food"
-                (delete)="onDeleteFood($event)">
-              </app-food-card>
+            <div class="feature-item">
+              <div class="feature-icon">📊</div>
+              <span>Get Analysis</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <span>Track Health</span>
             </div>
           </div>
         </div>
 
-        <div *ngIf="activeTab === 'stats'" class="tab-content">
-          <app-stats></app-stats>
+        <app-image-upload 
+          *ngIf="!nutritionData"
+          (imageSelected)="onImageSelected($event)"
+          #cameraUpload>
+        </app-image-upload>
+
+        <div class="loading-section" *ngIf="loading">
+          <div class="loading-spinner">
+            <div class="spinner-logo">🔄</div>
+          </div>
+          <p>Analyzing your food...</p>
         </div>
+
+        <app-food-card
+          *ngIf="nutritionData"
+          [nutritionData]="nutritionData"
+          (generateRequest)="onGenerateRequest($event)"
+          (reset)="resetApp()"
+          #nutritionResults>
+        </app-food-card>
       </main>
     </div>

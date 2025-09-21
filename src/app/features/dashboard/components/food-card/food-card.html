@@ -1,42 +1,194 @@
-  <div class="food-card">
-      <div class="food-header">
-        <h3>{{ food.name }}</h3>
-        <div class="health-score" [class]="getHealthScoreClass()">
-          {{ food.healthScore }}/10
+<mat-card class="results-card" *ngIf="nutritionData">
+      <mat-card-header>
+        <mat-card-title class="food-title">
+          <span class="food-icon">🍽️</span>
+          {{ nutritionData.food_name }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ nutritionData.food_category }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Confidence Score -->
+        <div class="confidence-section">
+          <div class="confidence-icon">🎯</div>
+          <div class="confidence-label">Confidence Score</div>
+          <mat-progress-bar 
+            mode="determinate" 
+            [value]="nutritionData.confidence_score"
+            [color]="getConfidenceColor()">
+          </mat-progress-bar>
+          <span class="confidence-value">{{ nutritionData.confidence_score }}%</span>
         </div>
-      </div>
-      
-      <div class="food-category">{{ food.category }}</div>
-      
-      <div class="nutrition-grid">
-        <div class="nutrition-item">
-          <span class="label">Calories</span>
-          <span class="value">{{ food.nutrition.calories }}</span>
+
+        <!-- Basic Info -->
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-icon">🔥</span>
+            <div>
+              <div class="info-value">{{ nutritionData.calories_per_serving }}</div>
+              <div class="info-label">Calories</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📏</span>
+            <div>
+              <div class="info-value">{{ nutritionData.serving_size }}</div>
+              <div class="info-label">Serving Size</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">❤️</span>
+            <div>
+              <div class="info-value">{{ nutritionData.healthiness_score }}/10</div>
+              <div class="info-label">Health Score</div>
+            </div>
+          </div>
         </div>
-        <div class="nutrition-item">
-          <span class="label">Protein</span>
-          <span class="value">{{ food.nutrition.protein }}g</span>
+
+        <!-- Macros -->
+        <div class="macros-section">
+          <div class="section-header">
+            <span class="section-icon">🧬</span>
+            <h3>Macronutrients</h3>
+          </div>
+          <div class="macros-grid">
+            <div class="macro-item">
+              <div class="macro-icon">💪</div>
+              <div class="macro-value">{{ nutritionData.macros.protein }}g</div>
+              <div class="macro-label">Protein</div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-icon">🌾</div>
+              <div class="macro-value">{{ nutritionData.macros.carbs }}g</div>
+              <div class="macro-label">Carbs</div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-icon">🥑</div>
+              <div class="macro-value">{{ nutritionData.macros.fat }}g</div>
+              <div class="macro-label">Fat</div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-icon">🌿</div>
+              <div class="macro-value">{{ nutritionData.macros.fiber }}g</div>
+              <div class="macro-label">Fiber</div>
+            </div>
+            <div class="macro-item">
+              <div class="macro-icon">🍯</div>
+              <div class="macro-value">{{ nutritionData.macros.sugar }}g</div>
+              <div class="macro-label">Sugar</div>
+            </div>
+          </div>
         </div>
-        <div class="nutrition-item">
-          <span class="label">Carbs</span>
-          <span class="value">{{ food.nutrition.carbs }}g</span>
+
+        <!-- Serving Size Adjustment -->
+        <div class="serving-adjustment">
+          <div class="section-header">
+            <span class="section-icon">⚖️</span>
+            <h3>Adjust Serving Size</h3>
+          </div>
+          <mat-form-field appearance="outline" class="serving-input">
+            <mat-label>Number of Servings</mat-label>
+            <input matInput type="number" [(ngModel)]="servingMultiplier" min="0.1" step="0.1">
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="generateCorrectedValues()" [disabled]="generating">
+            <span class="btn-icon">🧮</span>
+            {{ generating ? 'Calculating...' : 'Get Corrected Values' }}
+          </button>
         </div>
-        <div class="nutrition-item">
-          <span class="label">Fat</span>
-          <span class="value">{{ food.nutrition.fat }}g</span>
+
+        <!-- Corrected Values -->
+        <div class="corrected-section" *ngIf="correctedData">
+          <div class="section-header">
+            <span class="section-icon">✅</span>
+            <h3>Corrected Nutritional Values</h3>
+          </div>
+          <div class="corrected-grid">
+            <div class="corrected-item">
+              <span class="corrected-icon">🔥</span>
+              <div>
+                <div class="corrected-value">{{ correctedData.corrected_calories }}</div>
+                <div class="corrected-label">Calories</div>
+              </div>
+            </div>
+            <div class="corrected-item">
+              <span class="corrected-icon">📏</span>
+              <div>
+                <div class="corrected-value">{{ correctedData.corrected_serving_size }}</div>
+                <div class="corrected-label">Serving Size</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="corrected-macros">
+            <div class="subsection-header">
+              <span class="subsection-icon">🔄</span>
+              <h4>Corrected Macros</h4>
+            </div>
+            <div class="macros-grid">
+              <div class="macro-item">
+                <div class="macro-icon">💪</div>
+                <div class="macro-value">{{ correctedData.corrected_macros.protein }}g</div>
+                <div class="macro-label">Protein</div>
+              </div>
+              <div class="macro-item">
+                <div class="macro-icon">🌾</div>
+                <div class="macro-value">{{ correctedData.corrected_macros.carbs }}g</div>
+                <div class="macro-label">Carbs</div>
+              </div>
+              <div class="macro-item">
+                <div class="macro-icon">🥑</div>
+                <div class="macro-value">{{ correctedData.corrected_macros.fat }}g</div>
+                <div class="macro-label">Fat</div>
+              </div>
+              <div class="macro-item">
+                <div class="macro-icon">🌿</div>
+                <div class="macro-value">{{ correctedData.corrected_macros.fiber }}g</div>
+                <div class="macro-label">Fiber</div>
+              </div>
+              <div class="macro-item">
+                <div class="macro-icon">🍯</div>
+                <div class="macro-value">{{ correctedData.corrected_macros.sugar }}g</div>
+                <div class="macro-label">Sugar</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="advice-section" *ngIf="correctedData.nutritional_advice">
+            <div class="subsection-header">
+              <span class="subsection-icon">💡</span>
+              <h4>Nutritional Advice</h4>
+            </div>
+            <p class="advice-text">{{ correctedData.nutritional_advice }}</p>
+          </div>
+
+          <div class="recommendation-section" *ngIf="correctedData.portion_recommendation">
+            <div class="subsection-header">
+              <span class="subsection-icon">📋</span>
+              <h4>Portion Recommendation</h4>
+            </div>
+            <p class="recommendation-text">{{ correctedData.portion_recommendation }}</p>
+          </div>
         </div>
-        <div class="nutrition-item">
-          <span class="label">Fiber</span>
-          <span class="value">{{ food.nutrition.fiber }}g</span>
+
+        <!-- Healthier Alternatives -->
+        <div class="alternatives-section" *ngIf="nutritionData.healthier_alternatives.length > 0">
+          <div class="section-header">
+            <span class="section-icon">🌟</span>
+            <h3>Healthier Alternatives</h3>
+          </div>
+          <mat-chip-set>
+            <mat-chip *ngFor="let alternative of nutritionData.healthier_alternatives">
+              <span class="chip-icon">🥗</span>
+              {{ alternative }}
+            </mat-chip>
+          </mat-chip-set>
         </div>
-        <div class="nutrition-item">
-          <span class="label">Sodium</span>
-          <span class="value">{{ food.nutrition.sodium }}mg</span>
-        </div>
-      </div>
-      
-      <div class="food-actions">
-        <span class="timestamp">{{ formatTime(food.timestamp) }}</span>
-        <button class="delete-btn" (click)="onDelete()">🗑️</button>
-      </div>
-    </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-stroked-button (click)="startOver()">
+          <span class="btn-icon">🔄</span>
+          Analyze Another Food
+        </button>
+      </mat-card-actions>
+    </mat-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,18 +8,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService } from '../../../../core/services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
-import { NutritionService } from '../../../../core/services/nutrition.service';
-import { FoodItem, HealthyAlternative } from '../../../../models/food.model';
-import { Alternatives } from '../alternatives/alternatives';
 import { ImageUpload } from '../image-upload/image-upload';
 import { FoodCard } from '../food-card/food-card';
-import { Stats } from '../stats/stats';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NutritionService } from '../../../../core/services/nutrition.service';
+import { NutritionResponse, GenerateRequest } from '../../../../models/food.model';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
+  imports: [FoodCard,
     CommonModule,
     MatCardModule,
     MatButtonModule,
@@ -28,61 +26,72 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatGridListModule,
     ReactiveFormsModule,
     FormsModule,
-    MatToolbarModule,Alternatives,ImageUpload,FoodCard,Stats
+    MatToolbarModule,ImageUpload, MatSnackBarModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-  currentUser: any;
-  activeTab = 'upload';
-  isAnalyzing = false;
-  lastAnalyzedFood: FoodItem | null = null;
-  currentAlternatives: HealthyAlternative[] = [];
-  foodItems$: Observable<FoodItem[]>;
+export class DashboardComponent{
+  @ViewChild('cameraUpload') cameraUpload!: ImageUpload;
+  @ViewChild('nutritionResults') nutritionResults!: FoodCard;
 
-  tabs = [
-    { id: 'upload', label: '📷 Upload' },
-    { id: 'history', label: '📋 History' },
-    { id: 'stats', label: '📊 Stats' }
-  ];
+  nutritionData: NutritionResponse | null = null;
+  loading = false;
 
-  constructor(private nutritionService: NutritionService) {
-    this.foodItems$ = this.nutritionService.foodItems$;
-  }
+  constructor(
+    private nutritionService: NutritionService,
+    private snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit(): void {
-    // Component initialization
-  }
-
-  setActiveTab(tabId: string): void {
-    this.activeTab = tabId;
-  }
-
-  onImageAnalyzed(imageName: string): void {
-    this.isAnalyzing = true;
-    this.lastAnalyzedFood = null;
-    this.currentAlternatives = [];
-
-    this.nutritionService.analyzeFood(imageName).subscribe(food => {
-      this.isAnalyzing = false;
-      this.lastAnalyzedFood = food;
-      this.nutritionService.addFoodItem(food);
-
-      // Get healthy alternatives if the food has a low health score
-      if (food.healthScore < 7) {
-        this.currentAlternatives = this.nutritionService.getHealthyAlternatives(food.name);
+  onImageSelected(file: File) {
+    this.loading = true;
+    
+    this.nutritionService.uploadFile(file).subscribe({
+      next: (response) => {
+        this.nutritionData = response;
+        this.loading = false;
+        this.cameraUpload.resetUpload();
+        this.showSuccess('Food analyzed successfully!');
+      },
+      error: (error) => {
+        console.error('Upload error:', error);
+        this.loading = false;
+        this.cameraUpload.resetUpload();
+        this.showError('Failed to analyze food. Please try again.');
       }
     });
   }
 
-  onDeleteFood(foodId: string): void {
-    this.nutritionService.removeFoodItem(foodId);
+  onGenerateRequest(request: GenerateRequest) {
+    this.nutritionService.generateResponse(request).subscribe({
+      next: (response) => {
+        this.nutritionResults.setCorrectedData(response);
+        this.showSuccess('Corrected values calculated!');
+      },
+      error: (error) => {
+        console.error('Generate error:', error);
+        this.showError('Failed to calculate corrected values. Please try again.');
+      }
+    });
+  }
 
-    // Clear analysis result if it's the same food
-    if (this.lastAnalyzedFood?.id === foodId) {
-      this.lastAnalyzedFood = null;
-      this.currentAlternatives = [];
-    }
+  resetApp() {
+    this.nutritionData = null;
+    this.loading = false;
+  }
+
+  private showSuccess(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar']
+    });
+  }
+
+  private showError(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      panelClass: ['error-snackbar']
+    });
   }
 }
+

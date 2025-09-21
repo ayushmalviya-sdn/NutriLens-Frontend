@@ -1,36 +1,34 @@
-export interface NutritionInfo {
-  calories: number;
+export interface Macros {
   protein: number;
   carbs: number;
   fat: number;
   fiber: number;
   sugar: number;
-  sodium: number;
-  cholesterol: number;
 }
 
-export interface FoodItem {
-  id: string;
-  name: string;
-  image?: string;
-  nutrition: NutritionInfo;
-  healthScore: number;
-  category: string;
-  timestamp: Date;
+export interface NutritionResponse {
+  food_name: string;
+  food_category: string;
+  calories_per_serving: number;
+  serving_size: string;
+  macros: Macros;
+  healthiness_score: number;
+  healthier_alternatives: string[];
+  confidence_score: number;
 }
 
-export interface HealthyAlternative {
-  food: FoodItem;
-  reason: string;
-  improvementScore: number;
+export interface GenerateRequest {
+  foodName: string;
+  foodCategory: string;
+  servingSize: string;
+  macros: Macros;
+  caloriesPerServing: number;
 }
 
-export interface DailyStats {
-  date: Date;
-  totalCalories: number;
-  totalProtein: number;
-  totalCarbs: number;
-  totalFat: number;
-  averageHealthScore: number;
-  foodsConsumed: number;
+export interface GenerateResponse {
+  corrected_serving_size: string;
+  corrected_calories: number;
+  corrected_macros: Macros;
+  nutritional_advice: string;
+  portion_recommendation: string;
 }

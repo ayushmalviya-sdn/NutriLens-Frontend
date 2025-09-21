@@ -1,150 +1,146 @@
  .app-container {
       min-height: 100vh;
       width: 100vw;
-      background: linear-gradient(135deg, #3da981 0%, #afd341 100%);
-    }
-    .logo{
-      background-color: #f3f3f3;
-      padding: 2px;
-      border-radius: 5px;
+      background: linear-gradient(135deg, #9ee62a 0%, #298e0d 100%);
     }
 
-    .app-header {
-      text-align: center;
-      padding: 40px 20px;
-      color: white;
+    .app-toolbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: #333;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
     }
 
-    .app-header h1 {
-      margin: 0 0 8px 0;
-      font-size: 36px;
-      font-weight: 700;
-    }
-
-    .app-header p {
-      margin: 0;
-      font-size: 16px;
-      opacity: 0.9;
-    }
-
-    .app-nav {
+    .toolbar-content {
       display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 0 20px 20px 20px;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
     }
 
-    .nav-btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 25px;
-      background: rgba(255,255,255,0.2);
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.3);
-      transform: translateY(-2px);
+    .app-logo {
+      font-size: 28px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
 
-    .nav-btn.active {
-      background: white;
-      color: #667eea;
+    .app-title {
+      font-size: 20px;
+      font-weight: 600;
     }
 
-    .app-main {
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .main-content {
+      padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px 40px 20px;
     }
 
-    .tab-content {
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
-      padding: 32px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .analyzing-state {
+    .welcome-section {
       text-align: center;
-      padding: 40px 20px;
+      margin: 40px 0;
+      color: white;
     }
 
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #4CAF50;
-      border-radius: 50%;
+    .hero-logo {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      img{
+        border-radius: 10px;
+      padding: 5px;
+      background-color: #fff;
+
+      }
+    }
+
+    .welcome-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .welcome-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .feature-icons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .loading-section {
+      text-align: center;
+      padding: 60px 20px;
+      color: white;
+    }
+
+    .loading-spinner {
+      margin-bottom: 20px;
+    }
+
+    .spinner-logo {
+      font-size: 3rem;
       animation: spin 1s linear infinite;
-      margin: 0 auto 16px auto;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
-    .analysis-result {
-      margin-top: 32px;
-    }
-
-    .analysis-result h3 {
-      text-align: center;
-      color: #4CAF50;
-      margin-bottom: 24px;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .food-history h3 {
-      margin: 0 0 24px 0;
-      color: #333;
-      font-size: 24px;
-      font-weight: 600;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #666;
-    }
-
-    .empty-icon {
-      font-size: 64px;
-      margin-bottom: 16px;
-    }
-
-    .food-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
-    }
-
-    @media (max-width: 768px) {
-      .app-header h1 {
-        font-size: 28px;
+    @media (max-width: 600px) {
+      .hero-logo {
+        font-size: 3rem;
       }
       
-      .app-nav {
-        flex-wrap: wrap;
+      .welcome-title {
+        font-size: 2rem;
       }
       
-      .nav-btn {
-        padding: 10px 20px;
-        font-size: 14px;
+      .welcome-subtitle {
+        font-size: 1rem;
       }
       
-      .tab-content {
-        padding: 20px;
-        border-radius: 16px;
+      .feature-icons {
+        gap: 20px;
       }
       
-      .food-grid {
-        grid-template-columns: 1fr;
+      .feature-icon {
+        font-size: 1.5rem;
+      }
+      
+      .main-content {
+        padding: 10px;
       }
     }

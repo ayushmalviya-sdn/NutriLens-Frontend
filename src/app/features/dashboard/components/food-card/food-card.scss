@@ -1,111 +1,252 @@
-.food-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
+ .results-card {
+      max-width: 800px;
+      margin: 20px auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     }
 
-    .food-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    }
-
-    .food-header {
+    .food-title {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      gap: 8px;
+      font-size: 24px;
+      font-weight: 600;
     }
 
-    .food-header h3 {
+    .food-icon {
+      font-size: 28px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .confidence-section {
+      margin: 20px 0;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .confidence-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 20px;
+    }
+
+    .confidence-label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #666;
+    }
+
+    .confidence-value {
+      margin-left: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 12px;
+    }
+
+    .info-icon {
+      font-size: 24px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .info-value {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .info-label {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .macros-section, .corrected-section, .alternatives-section {
+      margin: 24px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .section-icon {
+      font-size: 20px;
+    }
+
+    .section-header h3 {
+      color: #333;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .subsection-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .subsection-icon {
+      font-size: 16px;
+    }
+
+    .subsection-header h4 {
       margin: 0;
       color: #333;
+    }
+
+    .macros-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+    }
+
+    .macro-item {
+      position: relative;
+      text-align: center;
+      padding: 12px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      border-left: 4px solid #4CAF50;
+    }
+
+    .macro-icon {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .macro-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .macro-label {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .serving-adjustment {
+      margin: 24px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .serving-input {
+      width: 200px;
+      margin-right: 16px;
+    }
+
+    .btn-icon {
+      font-size: 16px;
+      margin-right: 6px;
+    }
+
+    .corrected-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .corrected-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      border-radius: 12px;
+    }
+
+    .corrected-icon {
+      font-size: 24px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .corrected-value {
       font-size: 18px;
       font-weight: 600;
     }
 
-    .health-score {
-      padding: 4px 12px;
-      border-radius: 20px;
+    .corrected-label {
       font-size: 12px;
-      font-weight: 600;
+      opacity: 0.9;
     }
 
-    .health-score.excellent {
+    .corrected-macros {
+      margin: 20px 0;
+    }
+
+    .advice-section, .recommendation-section {
+      margin: 20px 0;
+      padding: 16px;
+      background: #e3f2fd;
+      border-radius: 12px;
+      border-left: 4px solid #2196F3;
+    }
+
+    .advice-text, .recommendation-text {
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    mat-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    mat-chip {
       background: #e8f5e8;
       color: #2e7d32;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .health-score.good {
-      background: #fff3e0;
-      color: #f57c00;
-    }
-
-    .health-score.poor {
-      background: #ffebee;
-      color: #d32f2f;
-    }
-
-    .food-category {
-      color: #666;
+    .chip-icon {
       font-size: 14px;
-      margin-bottom: 16px;
     }
 
-    .nutrition-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .nutrition-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8px;
-      background: #f8f9fa;
-      border-radius: 6px;
-    }
-
-    .nutrition-item .label {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 4px;
-    }
-
-    .nutrition-item .value {
-      font-weight: 600;
-      color: #333;
-    }
-
-    .food-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .timestamp {
-      font-size: 12px;
-      color: #999;
-    }
-
-    .delete-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 4px;
-      transition: background 0.2s ease;
-    }
-
-    .delete-btn:hover {
-      background: #ffebee;
-    }
-
-    @media (max-width: 768px) {
-      .nutrition-grid {
+    @media (max-width: 600px) {
+      .serving-adjustment {
+        text-align: center;
+      }
+      
+      .serving-input {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .macros-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
