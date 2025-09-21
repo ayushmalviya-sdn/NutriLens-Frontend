@@ -1,50 +1,53 @@
- <mat-card class="upload-card">
-      <mat-card-content>
-        <div class="upload-container">
-          <!-- Camera Preview -->
-          <div class="camera-section" *ngIf="showCamera">
-            <video #videoElement autoplay playsinline class="camera-preview"></video>
-            <canvas #canvasElement style="display: none;"></canvas>
-            <div class="camera-controls">
-              <button mat-fab color="primary" (click)="capturePhoto()" class="capture-btn">
-                <span class="capture-icon">📸</span>
-              </button>
-              <button mat-stroked-button (click)="stopCamera()" class="stop-btn">
-                <span class="stop-icon">❌</span>
-                Stop Camera
-              </button>
-            </div>
-          </div>
-
-          <!-- Upload Options -->
-          <div class="upload-options" *ngIf="!showCamera && !selectedImage">
-            <div class="upload-logo">📱</div>
-            <h3 class="upload-title">Choose Your Method</h3>
-            <button mat-raised-button color="primary" (click)="startCamera()" class="option-btn">
-              <span class="btn-icon">📷</span>
-              Take Photo
-            </button>
-            <button mat-raised-button color="accent" (click)="fileInput.click()" class="option-btn">
-              <span class="btn-icon">📁</span>
-              Upload Image
-            </button>
-            <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
-          </div>
-
-          <!-- Selected Image Preview -->
-          <div class="image-preview" *ngIf="selectedImage">
-            <img [src]="selectedImage" alt="Selected food image" class="preview-image">
-            <div class="image-actions">
-              <button mat-raised-button color="primary" (click)="uploadImage()" [disabled]="uploading">
-                <span class="btn-icon">🚀</span>
-                {{ uploading ? 'Analyzing...' : 'Analyze Food' }}
-              </button>
-              <button mat-stroked-button (click)="clearImage()">
-                <span class="btn-icon">🔄</span>
-                Try Again
-              </button>
-            </div>
-          </div>
+<mat-card class="upload-card">
+  <mat-card-content>
+    <div class="upload-container">
+      <!-- Camera Preview -->
+      <div class="camera-section" *ngIf="showCamera">
+        <video #videoElement autoplay playsinline class="camera-preview"></video>
+        <canvas #canvasElement style="display: none;"></canvas>
+        <div class="camera-controls">
+          <button mat-fab color="primary" (click)="capturePhoto()" class="capture-btn">
+            <span class="capture-icon">📸</span>
+          </button>
+          <button mat-stroked-button (click)="stopCamera()" class="stop-btn">
+            <span class="stop-icon">❌</span>
+            Stop Camera
+          </button>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+
+      <!-- Upload Options -->
+      <div class="upload-options" *ngIf="!showCamera && !selectedImage">
+        <div class="upload-logo">📱</div>
+        <h3 class="upload-title">Choose Your Method</h3>
+        <div class="d-flex">
+          <button mat-raised-button color="primary" (click)="startCamera()" class="option-btn">
+            <span class="btn-icon">📷</span>
+            Take Photo
+          </button>
+          <button mat-raised-button color="accent" (click)="fileInput.click()" class="option-btn">
+            <span class="btn-icon">📁</span>
+            Upload Image
+          </button>
+        </div>
+
+        <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
+      </div>
+
+      <!-- Selected Image Preview -->
+      <div class="image-preview" *ngIf="selectedImage">
+        <img [src]="selectedImage" alt="Selected food image" class="preview-image">
+        <div class="image-actions">
+          <button mat-raised-button color="primary" (click)="uploadImage()" [disabled]="uploading">
+            <span class="btn-icon">🚀</span>
+            {{ uploading ? 'Analyzing...' : 'Analyze Food' }}
+          </button>
+          <button mat-stroked-button (click)="clearImage()">
+            <span class="btn-icon">🔄</span>
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
