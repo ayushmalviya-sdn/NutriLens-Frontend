@@ -3,5 +3,6 @@ export const environment = {
   apiUrl: 'http://localhost:3000/api',
   appName: 'SmartPod Frontend',
   version: '1.0.0',
-  enableDebug: true
+  enableDebug: true,
+  baseUrl : 'https://localhost:7110/api/Main'
 };

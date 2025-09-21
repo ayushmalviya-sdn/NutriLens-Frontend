@@ -3,5 +3,6 @@ export const environment = {
   apiUrl: 'https://api.smartpod.com/api',
   appName: 'SmartPod Frontend',
   version: '1.0.0',
-  enableDebug: false
+  enableDebug: false,
+  baseUrl : 'https://nutrilens-backend-production.up.railway.app/'
 };

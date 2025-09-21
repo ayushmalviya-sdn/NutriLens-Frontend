@@ -57,7 +57,7 @@ export class FoodCard {
     this.generateRequest.emit(request);
   }
 
-  setCorrectedData(data: GenerateResponse) {
+  setCorrectedData(data: GenerateResponse) {debugger
     this.correctedData = data;
     this.generating = false;
   }
