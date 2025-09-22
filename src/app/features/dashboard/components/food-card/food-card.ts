@@ -58,7 +58,6 @@ export class FoodCard {
   }
 
   setCorrectedData(data: GenerateResponse) {
-    debugger
     this.correctedData = data;
     this.generating = false;
   }
