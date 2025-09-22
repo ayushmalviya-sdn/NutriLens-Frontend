@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class NutritionService {
- 
+
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File): Observable<NutritionResponse> {

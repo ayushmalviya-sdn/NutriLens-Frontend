@@ -9,18 +9,18 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     debugger;
     if (this.authService.isAuthenticated()) {
       const requiredRole = route.data['role'];
-      
+
       if (requiredRole && !this.authService.hasRole(requiredRole)) {
         this.router.navigate(['/unauthorized']);
         return false;
       }
-      
+
       return true;
     }
 
@@ -33,14 +33,14 @@ export class AuthGuard implements CanActivate {
   providedIn: 'root'
 })
 export class NoAuthGuard implements CanActivate {
- 
+
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { }
 
   canActivate(): boolean {
-     
+
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/dashboard']);
       return false;

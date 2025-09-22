@@ -12,10 +12,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-food-card',
-  imports: [ CommonModule, 
-    FormsModule, 
-    MatCardModule, 
-    MatButtonModule, 
+  imports: [CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
@@ -25,7 +25,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './food-card.scss'
 })
 export class FoodCard {
- @Input() nutritionData: NutritionResponse | null = null;
+  @Input() nutritionData: NutritionResponse | null = null;
   @Output() generateRequest = new EventEmitter<GenerateRequest>();
   @Output() reset = new EventEmitter<void>();
 
@@ -35,7 +35,7 @@ export class FoodCard {
 
   getConfidenceColor(): string {
     if (!this.nutritionData) return 'primary';
-    
+
     if (this.nutritionData.confidence_score >= 80) return 'primary';
     if (this.nutritionData.confidence_score >= 60) return 'accent';
     return 'warn';
@@ -45,7 +45,7 @@ export class FoodCard {
     if (!this.nutritionData) return;
 
     this.generating = true;
-    
+
     const request: GenerateRequest = {
       foodName: this.nutritionData.food_name,
       foodCategory: this.nutritionData.food_category,
@@ -57,7 +57,8 @@ export class FoodCard {
     this.generateRequest.emit(request);
   }
 
-  setCorrectedData(data: GenerateResponse) {debugger
+  setCorrectedData(data: GenerateResponse) {
+    debugger
     this.correctedData = data;
     this.generating = false;
   }

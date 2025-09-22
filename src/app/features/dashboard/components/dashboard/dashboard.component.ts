@@ -26,12 +26,12 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
     MatGridListModule,
     ReactiveFormsModule,
     FormsModule,
-    MatToolbarModule,ImageUpload, MatSnackBarModule
+    MatToolbarModule, ImageUpload, MatSnackBarModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent{
+export class DashboardComponent {
   @ViewChild('cameraUpload') cameraUpload!: ImageUpload;
   @ViewChild('nutritionResults') nutritionResults!: FoodCard;
 
@@ -41,11 +41,11 @@ export class DashboardComponent{
   constructor(
     private nutritionService: NutritionService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   onImageSelected(file: File) {
     this.loading = true;
-    
+
     this.nutritionService.uploadFile(file).subscribe({
       next: (response) => {
         this.nutritionData = response;

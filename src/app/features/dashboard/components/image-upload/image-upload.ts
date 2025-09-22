@@ -12,13 +12,13 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './image-upload.html',
   styleUrl: './image-upload.scss'
 })
-export class ImageUpload { 
-   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
+export class ImageUpload {
+  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  
+
   @Output() imageSelected = new EventEmitter<File>();
-  
+
   showCamera = false;
   selectedImage: string | null = null;
   selectedFile: File | null = null;
@@ -29,23 +29,23 @@ export class ImageUpload {
     try {
       // Try rear camera first, then front camera, then any camera
       try {
-        this.stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { facingMode: 'environment' } 
+        this.stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' }
         });
       } catch (envError) {
         try {
-          this.stream = await navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: 'user' } 
+          this.stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user' }
           });
         } catch (userError) {
-          this.stream = await navigator.mediaDevices.getUserMedia({ 
-            video: true 
+          this.stream = await navigator.mediaDevices.getUserMedia({
+            video: true
           });
         }
       }
-      
+
       this.showCamera = true;
-      
+
       setTimeout(() => {
         if (this.videoElement) {
           this.videoElement.nativeElement.srcObject = this.stream;
@@ -87,7 +87,7 @@ export class ImageUpload {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       this.selectedFile = input.files[0];
-      
+
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result as string;

@@ -29,4 +29,4 @@ import { RouterModule } from '@angular/router';
     }
   `]
 })
-export class UnauthorizedComponent {}
+export class UnauthorizedComponent { }

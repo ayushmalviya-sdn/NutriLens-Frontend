@@ -26,9 +26,15 @@ export interface GenerateRequest {
 }
 
 export interface GenerateResponse {
-  corrected_serving_size: string;
   corrected_calories: number;
-  corrected_macros: Macros;
-  nutritional_advice: string;
-  portion_recommendation: string;
+  corrected_serving_size: number;
+  corrected_macros: {
+    protein: number;
+    carbs: number;
+    fat: number;
+    fiber: number;
+    sugar: number;
+  };
+  nutritional_advice?: string;
+  portion_recommendation?: string;
 }

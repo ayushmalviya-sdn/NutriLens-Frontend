@@ -1,60 +1,53 @@
 <div class="app-container">
-      <mat-toolbar color="primary" class="app-toolbar">
-        <div class="toolbar-content">
-          <div class="logo-section">
-            <div class="app-logo"><img src="nutrilens.png" width="30" alt=""></div>
-            <span class="app-title">AI Nutrition Checker</span>
-          </div>
-          <div class="toolbar-actions">
-            <button mat-icon-button>
-              <mat-icon>info</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-toolbar>
-
-      <main class="main-content">
-        <div class="welcome-section" *ngIf="!nutritionData && !loading">
-          <div class="hero-logo"><img src="nutrilens.png"  width="60" alt=""></div>
-          <h1 class="welcome-title">Discover Your Food's Nutrition</h1>
-          <p class="welcome-subtitle">
-            Take a photo or upload an image of your food to get instant nutritional analysis
-          </p>
-          <div class="feature-icons">
-            <div class="feature-item">
-              <div class="feature-icon">📸</div>
-              <span>Take Photo</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">📊</div>
-              <span>Get Analysis</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">🎯</div>
-              <span>Track Health</span>
-            </div>
-          </div>
-        </div>
-
-        <app-image-upload 
-          *ngIf="!nutritionData"
-          (imageSelected)="onImageSelected($event)"
-          #cameraUpload>
-        </app-image-upload>
-
-        <div class="loading-section" *ngIf="loading">
-          <div class="loading-spinner">
-            <div class="spinner-logo">🔄</div>
-          </div>
-          <p>Analyzing your food...</p>
-        </div>
-
-        <app-food-card
-          *ngIf="nutritionData"
-          [nutritionData]="nutritionData"
-          (generateRequest)="onGenerateRequest($event)"
-          (reset)="resetApp()"
-          #nutritionResults>
-        </app-food-card>
-      </main>
+  <mat-toolbar color="primary" class="app-toolbar">
+    <div class="toolbar-content">
+      <div class="logo-section">
+        <div class="app-logo"><img src="nutrilens.png" width="30" alt=""></div>
+        <span class="app-title">AI Nutrition Checker</span>
+      </div>
+      <div class="toolbar-actions">
+        <button mat-icon-button>
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
     </div>
+  </mat-toolbar>
+
+  <main class="main-content">
+    <div class="welcome-section" *ngIf="!nutritionData && !loading">
+      <div class="hero-logo"><img src="nutrilens.png" width="60" alt=""></div>
+      <h1 class="welcome-title">Discover Your Food's Nutrition</h1>
+      <p class="welcome-subtitle">
+        Take a photo or upload an image of your food to get instant nutritional analysis
+      </p>
+      <div class="feature-icons">
+        <div class="feature-item">
+          <div class="feature-icon">📸</div>
+          <span>Take Photo</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📊</div>
+          <span>Get Analysis</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <span>Track Health</span>
+        </div>
+      </div>
+    </div>
+
+    <app-image-upload *ngIf="!nutritionData" (imageSelected)="onImageSelected($event)" #cameraUpload>
+    </app-image-upload>
+
+    <div class="loading-section" *ngIf="loading">
+      <div class="loading-spinner">
+        <div ><img src="spin.png" class="spinner-logo" width="50" alt=""></div>
+      </div>
+      <p>Analyzing your food...</p>
+    </div>
+
+    <app-food-card *ngIf="nutritionData" [nutritionData]="nutritionData" (generateRequest)="onGenerateRequest($event)"
+      (reset)="resetApp()" #nutritionResults>
+    </app-food-card>
+  </main>
+</div>

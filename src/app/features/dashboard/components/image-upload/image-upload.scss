@@ -1,126 +1,134 @@
 .upload-card {
-      max-width: 600px;
-      margin: 0 auto;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    }
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
 
-    .upload-container {
-      text-align: center;
-      padding: 20px;
-    }
+.upload-container {
+  text-align: center;
+  padding: 20px;
+}
 
-    .upload-logo {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    }
+.upload-logo {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
 
-    .upload-title {
-      color: #333;
-      margin-bottom: 24px;
-      font-weight: 500;
-    }
+.upload-title {
+  color: #333;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
 
-    .camera-section {
-      position: relative;
-    }
+.camera-section {
+  position: relative;
+}
 
-    .camera-preview {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-      object-fit: cover;
-      border-radius: 12px;
-      background: #f5f5f5;
-    }
+.camera-preview {
+  width: 100%;
+  max-width: 400px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f5f5f5;
+}
 
-    .camera-controls {
-      margin-top: 20px;
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      align-items: center;
-    }
+.camera-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
 
-    .capture-btn {
-      width: 64px;
-      height: 64px;
-    }
+.capture-btn {
+  width: 64px;
+  height: 64px;
+}
 
-    .capture-icon {
-      font-size: 24px;
-    }
+.capture-icon {
+  font-size: 24px;
+}
 
-    .stop-icon {
-      font-size: 16px;
-      margin-right: 8px;
-    }
+.stop-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
 
-    .upload-options {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-    }
+.upload-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
 
-    .option-btn {
-      min-width: 200px;
-      height: 56px;
-      font-size: 16px;
-      border-radius: 28px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+.option-btn {
+  min-width: 200px;
+  height: 56px;
+  font-size: 16px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-    .btn-icon {
-      font-size: 18px;
-    }
+.btn-icon {
+  font-size: 18px;
+  margin: auto;
 
-    .image-preview {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+}
 
-    .preview-image {
-      max-width: 100%;
-      max-height: 300px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
-    .image-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+.preview-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
 
-    .image-actions button {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+.image-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    @media (max-width: 600px) {
-      .camera-controls {
-        flex-direction: column;
-        gap: 12px;
-      }
-      
-      .image-actions {
-        flex-direction: column;
-        width: 100%;
-      }
-      
-      .image-actions button {
-        width: 100%;
-      }
-    }
-    .d-flex{
-      display: flex;
-      flex-direction: row;
-    }
+.image-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.button-container {
+  display: flex;
+  flex-direction: row;
+  button{
+    margin: 5px;
+  }
+}
+@media (max-width: 600px) {
+  .camera-controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+  .image-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .image-actions button {
+    width: 100%;
+  }
+}
+
